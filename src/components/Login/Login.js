@@ -3,8 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../redux/slices/authSlice';
-import axios from "../../utils/axiosCustomize";
 import { toast } from 'react-toastify';
+import { apiLoginUser } from '../../services/authService';
 
 
 const Login = () => {
@@ -18,12 +18,7 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     console.log(username, password)
-    const doLogin = await axios.post(
-      "api/user/loginUser",
-      { username, password },
-      //thêm thuộc tính này để lưu được cookie khi gọi API
-      { withCredentials: true } 
-    )
+    const doLogin = await apiLoginUser(username,password)
     console.log("doLogin", doLogin)
     if (doLogin && doLogin.EC === 0) {
       dispatch(loginSuccess(doLogin))

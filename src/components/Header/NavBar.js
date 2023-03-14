@@ -2,13 +2,17 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { apiLogoutUser } from '../../services/authService';
+import { toast } from 'react-toastify';
+import { logoutSuccess } from '../../redux/slices/authSlice';
 
 
 const NavBar = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     const account = useSelector(state => state.auth.account)
@@ -17,6 +21,13 @@ const NavBar = () => {
         if (!isAuthenticated) {
             navigate("/login")
         }
+    }
+
+    const handleLogout=async()=>{
+        const data = await apiLogoutUser()
+        dispatch(logoutSuccess())
+        toast.success(data)
+        console.log("data=>>",data)
     }
 
     return (
@@ -35,7 +46,7 @@ const NavBar = () => {
                             {isAuthenticated ?
                                 <>
                                     <span className='nav-link'>Hi, {account.fullname}</span>
-                                    <NavLink to="/logout" className='nav-link'>Logout</NavLink>
+                                    <span  className='nav-link' onClick={()=>handleLogout()}>Logout</span>
                                 </>
                                 :
                                 <>
