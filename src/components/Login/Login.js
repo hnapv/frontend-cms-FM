@@ -4,6 +4,9 @@ import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../redux/slices/authSlice';
 import axios from "../../utils/axiosCustomize";
+import { toast } from 'react-toastify';
+
+
 const Login = () => {
   const dispatch = useDispatch()
   const [isShowPassword, setIsShowPassword] = useState(false)
@@ -21,8 +24,14 @@ const Login = () => {
       //thêm thuộc tính này để lưu được cookie khi gọi API
       { withCredentials: true } 
     )
-    dispatch(loginSuccess(doLogin))
     console.log("doLogin", doLogin)
+    if (doLogin && doLogin.EC === 0) {
+      dispatch(loginSuccess(doLogin))
+      toast.success(doLogin.EM)
+  }
+    if (doLogin && doLogin.EC !== 0) {
+      toast.error(doLogin.EM)
+    }
   }
 
 

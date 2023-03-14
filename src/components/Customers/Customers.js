@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllCustomers } from '../../services/customerServices';
+import { fetchAllCustomers } from '../../services/customerService';
 
 const Customers = () => {
     const dispatch = useDispatch()
