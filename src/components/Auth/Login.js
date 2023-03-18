@@ -5,10 +5,13 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../redux/slices/authSlice';
 import { toast } from 'react-toastify';
 import { apiLoginUser } from '../../services/authService';
+import "./Login.scss"
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
   const dispatch = useDispatch()
+  const navigate= useNavigate()
   const [isShowPassword, setIsShowPassword] = useState(false)
   const [username, setUsername] = useState("ADMIN123")
   const [password, setPassword] = useState("123455")
@@ -31,7 +34,7 @@ const Login = () => {
 
 
   return (
-    <div className='container'>
+    <div className='container login-container'>
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Username</Form.Label>
@@ -69,6 +72,7 @@ const Login = () => {
         >
           Login
         </Button>
+        <div><br/><button onClick={()=>navigate("/")}>Back to homepage</button></div>
       </Form>
     </div>
   );

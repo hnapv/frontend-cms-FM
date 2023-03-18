@@ -7,12 +7,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PersistGate } from 'redux-persist/integration/react'
-import Login from './components/Login/Login';
+import Login from './components/Auth/Login';
 import { Provider } from 'react-redux';
 import  { persistor, store } from './redux/store';
 import Customers from './components/Customers/Customers';
 import Users from './components/Users/Users';
 import Contracts from './components/Contracts/Contracts';
+import Register from './components/Auth/Register';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,11 +23,12 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} >
-          <Route path="login" element={<Login />} />
           <Route path="user" element={<Users />} />
           <Route path="customer" element={<Customers />} />
           <Route path="contract" element={<Contracts />} />
         </Route>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
       </Routes>
       
       <ToastContainer

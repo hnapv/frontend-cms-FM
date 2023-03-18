@@ -33,7 +33,7 @@ const NavBar = () => {
     return (
         <>
             <Navbar bg="light" expand="lg">
-                <Container>
+                {/* <Container> */}
                     <NavLink to="/" className="navbar-brand">ANHVP-INVEST</NavLink>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -46,7 +46,7 @@ const NavBar = () => {
                             {isAuthenticated ?
                                 <>
                                     <span className='nav-link'>Hi, {account.fullname}</span>
-                                    <span  className='nav-link' onClick={()=>handleLogout()}>Logout</span>
+                                    <span  className='nav-link' style={{cursor:"pointer"}} onClick={()=>handleLogout()}>Logout</span>
                                 </>
                                 :
                                 <>
@@ -57,7 +57,7 @@ const NavBar = () => {
 
                         </Nav>
                     </Navbar.Collapse>
-                </Container>
+                {/* </Container> */}
             </Navbar>
         </>
     )

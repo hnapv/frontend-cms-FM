@@ -7,7 +7,6 @@ import { fetchAllContracts } from '../../services/contractService';
 const Contracts = () => {
     const dispatch = useDispatch()
     const listContracts = useSelector(state => state?.contract?.listContracts)
-    console.log("listContracts", listContracts)
     useEffect(() => {
         dispatch(fetchAllContracts())
     }, [])

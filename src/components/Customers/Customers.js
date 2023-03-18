@@ -10,8 +10,7 @@ const Customers = () => {
     useEffect(() => {
         dispatch(fetchAllCustomers())
     }, [])
-    console.log("listCustomers==>", listCustomers)
-    console.log("tesst=>>>")
+    
     return (
         <Container>
             <Table striped bordered hover>
