@@ -3,9 +3,15 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../redux/slices/authSlice';
-import axios from "../../utils/axiosCustomize";
+import { toast } from 'react-toastify';
+import { apiLoginUser } from '../../services/authService';
+import "./Login.scss"
+import { useNavigate } from 'react-router-dom';
+
+
 const Login = () => {
   const dispatch = useDispatch()
+  const navigate= useNavigate()
   const [isShowPassword, setIsShowPassword] = useState(false)
   const [username, setUsername] = useState("ADMIN123")
   const [password, setPassword] = useState("123455")
@@ -15,19 +21,20 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     console.log(username, password)
-    const doLogin = await axios.post(
-      "api/user/loginUser",
-      { username, password },
-      //thêm thuộc tính này để lưu được cookie khi gọi API
-      { withCredentials: true } 
-    )
-    dispatch(loginSuccess(doLogin))
+    const doLogin = await apiLoginUser(username,password)
     console.log("doLogin", doLogin)
+    if (doLogin && doLogin.EC === 0) {
+      dispatch(loginSuccess(doLogin))
+      toast.success(doLogin.EM)
+  }
+    if (doLogin && doLogin.EC !== 0) {
+      toast.error(doLogin.EM)
+    }
   }
 
 
   return (
-    <div className='container'>
+    <div className='container login-container'>
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Username</Form.Label>
@@ -65,6 +72,7 @@ const Login = () => {
         >
           Login
         </Button>
+        <div><br/><button onClick={()=>navigate("/")}>Back to homepage</button></div>
       </Form>
     </div>
   );

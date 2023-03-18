@@ -1,15 +1,15 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchAllCustomers } from '../../services/customerService'
+import { createSlice } from '@reduxjs/toolkit'
+import { fetchAllUsers } from '../../services/userService'
 
 
 const initialState = {
-    listCustomers: [],
+    listUsers: [],
     isLoading: false,
     isError: false,
 }
 
-export const customerSlice = createSlice({
-    name: 'customer',
+export const userSlice = createSlice({
+    name: 'user',
     initialState,
     reducers: {
 
@@ -17,19 +17,19 @@ export const customerSlice = createSlice({
     extraReducers: (builder) => {
         // Add reducers for additional action types here, and handle loading state as needed
         builder
-            .addCase(fetchAllCustomers.pending, (state, action) => {
+            .addCase(fetchAllUsers.pending, (state, action) => {
                 // Add user to the state array
                 state.isLoading= true
                 state.isError= false
             })
-            .addCase(fetchAllCustomers.fulfilled, (state, action) => {
+            .addCase(fetchAllUsers.fulfilled, (state, action) => {
                 // Add user to the state array
-                state.listCustomers= action.payload
+                state.listUsers= action.payload
                 console.log("check==>>",action.payload)
                 state.isLoading= false
                 state.isError= false
             })
-            .addCase(fetchAllCustomers.rejected, (state, action) => {
+            .addCase(fetchAllUsers.rejected, (state, action) => {
                 // Add user to the state array
                 state.isError= true
             })
@@ -37,4 +37,4 @@ export const customerSlice = createSlice({
 })
 
 
-export default customerSlice.reducer
+export default userSlice.reducer
