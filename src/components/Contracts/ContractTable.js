@@ -13,6 +13,7 @@ const ContractTable = ()=>{
     }, [])
     return(
         <>
+        <br/>
          <Table hover className='contract-table' >
                     <thead>
                         <tr className='text-center'>

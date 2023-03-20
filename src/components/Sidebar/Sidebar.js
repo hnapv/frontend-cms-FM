@@ -7,9 +7,8 @@ import { AiFillHome } from "react-icons/ai"
 
 const Sidebar = () => {
   return (
-    <div className="sidebar">
-      <div className="home-icon">ANHVP-INVEST</div>
-      <br/>
+    <div className="sidebar-container">
+
       <ul className="nav nav-pills flex-column mb-auto">
       <li className="nav-item">
           <NavLink to="/" className="nav-link">

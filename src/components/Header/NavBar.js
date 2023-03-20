@@ -28,22 +28,18 @@ const NavBar = () => {
         const data = await apiLogoutUser()
         dispatch(logoutSuccess())
         toast.success(data)
-        console.log("data=>>", data)
     }
 
     return (
         <>
             <Navbar bg="light" expand="lg">
                 {/* <Container> */}
-                {/* <NavLink to="/" className="navbar-brand">ANHVP-INVEST</NavLink>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
+                <NavLink to="/" className="navbar-brand">ANHVP-INVEST</NavLink>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        
-                        <FiSearch className='search-icon'/>
+                    <Nav className="me-auto ">
+                        <FiSearch className='search-icon' />
                         <input className='form-control' placeholder='Search' />
-                        {/* <NavLink to={isAuthenticated?"/user":"/login"} className='nav-link' onClick={() => handleCheckAuthenticated()}>User</NavLink>
-                            <NavLink to={isAuthenticated?"/contract":"/login"} className='nav-link' onClick={() => handleCheckAuthenticated()}>Contract</NavLink> */}
                     </Nav>
                     <Nav>
                         {isAuthenticated ?

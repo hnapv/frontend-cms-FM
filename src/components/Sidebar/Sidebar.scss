@@ -1,4 +1,5 @@
-.sidebar {
+.sidebar-container {
+  background-color: #f4f5f7 !important;
   height: 100vh;
   min-width: 220px;
   color: var(--gray-color) !important;
@@ -6,11 +7,7 @@
   position: fixed;
   z-index: 100;
 
-  .home-icon {
-    line-height: 60px;
-    font-size: 30px;
-    color: #283cb6;
-  }
+
   .nav-link {
     text-decoration: none;
     color: #5e605f !important;
