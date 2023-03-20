@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { apiLogoutUser } from '../../services/authService';
 import { toast } from 'react-toastify';
 import { logoutSuccess } from '../../redux/slices/authSlice';
+import { FiSearch } from "react-icons/fi"
 
 
 const NavBar = () => {
@@ -23,40 +24,42 @@ const NavBar = () => {
         }
     }
 
-    const handleLogout=async()=>{
+    const handleLogout = async () => {
         const data = await apiLogoutUser()
         dispatch(logoutSuccess())
         toast.success(data)
-        console.log("data=>>",data)
+        console.log("data=>>", data)
     }
 
     return (
         <>
             <Navbar bg="light" expand="lg">
                 {/* <Container> */}
-                    <NavLink to="/" className="navbar-brand">ANHVP-INVEST</NavLink>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="me-auto">
-                            <NavLink to="/customer" className='nav-link'>Customer</NavLink>
-                            <NavLink to={isAuthenticated?"/user":"/login"} className='nav-link' onClick={() => handleCheckAuthenticated()}>User</NavLink>
-                            <NavLink to={isAuthenticated?"/contract":"/login"} className='nav-link' onClick={() => handleCheckAuthenticated()}>Contract</NavLink>
-                        </Nav>
-                        <Nav>
-                            {isAuthenticated ?
-                                <>
-                                    <span className='nav-link'>Hi, {account.fullname}</span>
-                                    <span  className='nav-link' style={{cursor:"pointer"}} onClick={()=>handleLogout()}>Logout</span>
-                                </>
-                                :
-                                <>
-                                    <NavLink to="/login" className='nav-link'>Login</NavLink>
-                                    <NavLink to="/register" className='nav-link'>Register</NavLink>
-                                </>
-                            }
+                {/* <NavLink to="/" className="navbar-brand">ANHVP-INVEST</NavLink>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        
+                        <FiSearch className='search-icon'/>
+                        <input className='form-control' placeholder='Search' />
+                        {/* <NavLink to={isAuthenticated?"/user":"/login"} className='nav-link' onClick={() => handleCheckAuthenticated()}>User</NavLink>
+                            <NavLink to={isAuthenticated?"/contract":"/login"} className='nav-link' onClick={() => handleCheckAuthenticated()}>Contract</NavLink> */}
+                    </Nav>
+                    <Nav>
+                        {isAuthenticated ?
+                            <>
+                                <span className='nav-link'>Hi, {account.fullname}</span>
+                                <span className='nav-link' style={{ cursor: "pointer" }} onClick={() => handleLogout()}>Logout</span>
+                            </>
+                            :
+                            <>
+                                <NavLink to="/login" className='nav-link'>Login</NavLink>
+                                <NavLink to="/register" className='nav-link'>Register</NavLink>
+                            </>
+                        }
 
-                        </Nav>
-                    </Navbar.Collapse>
+                    </Nav>
+                </Navbar.Collapse>
                 {/* </Container> */}
             </Navbar>
         </>

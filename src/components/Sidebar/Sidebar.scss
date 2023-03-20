@@ -1,0 +1,37 @@
+.sidebar {
+  height: 100vh;
+  min-width: 220px;
+  color: var(--gray-color) !important;
+  font-size: 15px;
+  position: fixed;
+  z-index: 100;
+
+  .home-icon {
+    line-height: 60px;
+    font-size: 30px;
+    color: #283cb6;
+  }
+  .nav-link {
+    text-decoration: none;
+    color: #5e605f !important;
+    // border: 1px solid red;
+    // color: red;
+    line-height: 24px;
+
+    width: 100%;
+    border-radius: 0;
+
+    &.active {
+      background-color: white;
+      color:  #283cb6 !important;
+      font-weight: 600;
+      border-top-right-radius: 25px;
+      border-bottom-right-radius: 25px;
+    }
+    .sidebar-icon{
+      font-size: 21px;
+      margin-bottom: 4px;
+      margin-right: 5px;
+    }
+  }
+}

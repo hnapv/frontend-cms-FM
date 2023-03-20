@@ -4,7 +4,12 @@ import axios from "../utils/axiosCustomize"
 export const fetchAllCustomers = createAsyncThunk(
     'customers/fetchAllCustomers',
     async () => {
-        const response = await axios.get("api/getListCusInfo")
+        const response = await axios.get("api/getListCustomer")
         return response
     } 
 )
+
+
+export const fetchCustomerByID = (CustomerID)=>{
+    return axios.post("api/getDetailCustomerByCustomerID",{CustomerID:CustomerID})
+}

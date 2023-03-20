@@ -30,7 +30,7 @@ const Customers = () => {
                                     <td>{index}</td>
                                     <td>{a.CustomerName}</td>
                                     <td>{a.CustomerID}</td>
-                                    <td>{a.PhoneNumber}</td>
+                                    <td className='text-end'>{a.PhoneNumber}</td>
                                 </tr>
                             )
                         })}

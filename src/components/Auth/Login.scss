@@ -1,4 +1,42 @@
 .login-container {
-    width: 800px;
-    margin-top: 30px;
+  height: 100vh;
+  background: rgb(84, 124, 193);
+  background: linear-gradient(
+    90deg,
+    rgba(84, 124, 193, 1) 0%,
+    rgb(202, 28, 208) 100%
+  );
+  padding-top: 100px;
+  .login-wrapper {
+    background: white;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 600px;
+    border-radius: 10px;
+    .login-form {
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+      h2 {
+        padding-top: 50px;
+        margin-bottom: 50px;
+        font-size: 30px;
+        font-weight: 600;
+      }
+      .form-label {
+      }
+      .btn-submit {
+        width: 100%;
+        border-radius: 25px;
+        font-weight: 600;
+        background: rgb(84, 124, 193);
+        background: linear-gradient(
+          90deg,
+          rgba(84, 124, 193, 1) 0%,
+          rgb(202, 28, 208) 100%
+        );
+      }
+    }
+  }
 }

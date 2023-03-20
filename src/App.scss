@@ -1,21 +1,23 @@
 :root{
+  
   --primary-color: #1572E8;
-  --primary-color__active: #1269db;
+  --navbar-color: #1269db;
+  --searchbar-color: #1269db;
   --white-color: #ffffff;
   --gray-color: #8d9498;
   // --panel-color: ,
   // --text-color:
+  --bg-color: #f4f5f7;
 }
 
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 @media (min-width: 1900px) {
   .container,
@@ -28,10 +30,21 @@ body {
   }
 }
 
+.app-container{
+  display: flex;
+  background-color: #f4f5f7 !important;
+  height: 100vh;
+  .app-wrapper{
+    width: 100%;
+    margin-left: 250px;
+    margin-right: 30px;
+  }
+}
+
 .navbar {
   z-index: 10;
-  background-color: var(--primary-color) !important;
-  padding: 0px 30px;
+  background-color: #f4f5f7 !important;
+  padding: 0 30px 0;
 
   // h40px
   // padding-left: 30px;
@@ -39,17 +52,23 @@ body {
   .navbar-brand{
     color: var(--white-color);
   }
+  .search-icon{
+    font-size: 29px;
+    margin: auto;
+    margin-right: 14px;
+    margin-left: 15px;
+  }
   .nav-link {
-    color: var(--white-color) !important;
+    color: black !important;
     // border: 1px solid red;
     // color: red;
-    line-height: 30px;
+    line-height: 44px;
     margin-left: 20px;
     min-width: 100px;
     text-align: center;
 
     &.active {
-      background-color: var(--primary-color__active);
+      // background-color: var(--searchbar-color);
     }
   }
 }
