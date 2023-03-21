@@ -25,7 +25,6 @@ export const contractSlice = createSlice({
             .addCase(fetchAllContracts.fulfilled, (state, action) => {
                 // Add user to the state array
                 state.listContracts= action.payload
-                console.log("check contracts==>>",action.payload)
                 state.isLoading= false
                 state.isError= false
             })
