@@ -41,7 +41,7 @@ const NavBar = () => {
                         <FiSearch className='search-icon' />
                         <input className='form-control' placeholder='Search' />
                     </Nav>
-                    <Nav>
+                    <Nav className='auth-text'>
                         {isAuthenticated ?
                             <>
                                 <span className='nav-link'>Hi, {account.fullname}</span>

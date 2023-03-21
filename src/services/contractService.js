@@ -10,6 +10,11 @@ export const fetchAllContracts = createAsyncThunk(
     } 
 )
 
-export const fetchContractsWithPaginate = (limit,page)=>{
-    return axios.get(`api/v1/contract?limit=${limit}&page=${page}`)
-}
+export const fetchContractsWithPaginate = createAsyncThunk(
+    'contracts/fetchContractsWithPaginate',
+    async ({limit,page}) => {
+        const response = await axios.get(`api/v1/contract?limit=${limit}&page=${page}`)
+        console.log("check==>d",limit,page)
+        return response
+    } 
+)

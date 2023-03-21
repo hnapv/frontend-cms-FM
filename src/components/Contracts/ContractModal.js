@@ -27,7 +27,6 @@ const ContractModal = (props) => {
         setCustomerID("")
         setCustomerName("")
     }
-    console.log("data=>>", CustomerID)
 
     const handleCheckCustomerID = async (event) => {
         if (event.key === "Tab" | "Enter") {
