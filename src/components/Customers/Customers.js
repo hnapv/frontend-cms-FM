@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllCustomers } from '../../services/customerService';
+import "./Customers.scss"
 
 const Customers = () => {
     const dispatch = useDispatch()
@@ -10,9 +11,15 @@ const Customers = () => {
     useEffect(() => {
         dispatch(fetchAllCustomers())
     }, [])
-    
+
     return (
-        <Container>
+        <Container className='customer-container'>
+            <div className='header-customer'>
+                <span className='title-customer'>Customer</span>
+                <button
+                    className='btn-add-new'
+                >Create</button>
+            </div>
             <Table striped bordered hover>
                 <thead>
                     <tr>

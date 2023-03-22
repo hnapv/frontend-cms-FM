@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchAllUsers } from '../../services/userService';
+import "./User.scss"
 
 const Users = () => {
     const dispatch = useDispatch()
@@ -19,7 +20,13 @@ const Users = () => {
     console.log("listUsers==>", listUsers)
     console.log("tesst=>>>")
     return (
-        <Container>
+        <Container className='user-container'>
+            <div className='header-user'>
+                <span className='title-user'>User</span>
+                <button
+                    className='btn-add-new'
+                >Create</button>
+            </div>
             <Table striped bordered hover>
                 <thead>
                     <tr>

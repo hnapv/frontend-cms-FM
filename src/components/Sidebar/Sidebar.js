@@ -3,7 +3,7 @@ import "./Sidebar.scss"
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { IoIosPeople } from "react-icons/io"
 import { FaFileContract,FaUser } from "react-icons/fa"
-import { AiFillHome } from "react-icons/ai"
+import { AiFillHome,AiFillSetting } from "react-icons/ai"
 
 const Sidebar = () => {
   return (
@@ -26,6 +26,10 @@ const Sidebar = () => {
         <li className="nav-item">
           <NavLink to="/user" className="nav-link">
             <FaUser className="sidebar-icon" />User</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="/system" className="nav-link">
+            <AiFillSetting className="sidebar-icon" />System settings</NavLink>
         </li>
 
       </ul>

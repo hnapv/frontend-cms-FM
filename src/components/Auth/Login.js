@@ -77,7 +77,7 @@ const Login = () => {
           >
             LOGIN
           </Button>
-          <div><br /><button onClick={() => navigate("/")}>Back to homepage</button></div>
+          <div><br /><button className='btn ' style={{marginLeft:"70px"}} onClick={() => navigate("/")}>Back to homepage</button></div>
         </Form>
       </div>
 
