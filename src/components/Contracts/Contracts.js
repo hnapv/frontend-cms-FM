@@ -1,51 +1,65 @@
-import { useEffect } from 'react';
-import { Container } from 'react-bootstrap';
-import Table from 'react-bootstrap/Table';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllContracts } from '../../services/contractService';
+import ContractTable from './ContractTable';
+
+
+import "./Contracts.scss"
+import { useState } from 'react';
+import ContractModal from './ContractModal';
+import ReactPaginate from 'react-paginate';
+import { useSelector } from 'react-redux';
+
 
 const Contracts = () => {
-    const dispatch = useDispatch()
-    const listContracts = useSelector(state => state?.contract?.listContracts)
-    useEffect(() => {
-        dispatch(fetchAllContracts())
-    }, [])
+    const [show, setShow] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1)
+    const handleShow = () => setShow(true);
+    const totalPages = useSelector(state => state?.contract?.data?.totalPages)
+
+
+    const handlePageClick = (event) => {
+        console.log(
+            `User requested page number ${+event.selected + 1}, which is offset`
+        );
+        setCurrentPage(+event.selected + 1)
+    };
 
     return (
-        <div>
-            <Container>
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Name</th>
-                            <th>ID</th>
-                            <th>Term</th>
-                            <th>Investment Principal</th>
-                            <th>Status</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {listContracts && listContracts.length > 0
-                            && listContracts.map((a, index) => {
-                                return (
-                                    <tr key={`${index}-listContracts`}>
-                                        <td>{a.OrderNo}</td>
-                                        <td>{a.CustomerName}</td>
-                                        <td>{a.CustomerID}</td>
-                                        <td >{a.Term}</td>
-                                        <td>{a.InvestmentPrincipal}</td>
-                                        <td>{a.ContractStatus}</td>
-                                        <td>{a.createdAt}</td>
-                                        <td>{a.updatedAt}</td>
-                                    </tr>
-                                )
-                            })}
-                    </tbody>
-                </Table>
-            </Container>
+        <div className='container contract-container'>
+            <div className='header-contract'>
+                <span className='title-contract'>Contract</span>
+                <button
+                    className='btn-add-new'
+                    onClick={() => handleShow()}
+                >Create</button>
+            </div>
+            <ContractTable
+                handlePageClick={handlePageClick}
+                currentPage={currentPage}
+            />
+
+            <ContractModal
+                show={show}
+                setShow={setShow}
+            />
+            <ReactPaginate
+                nextLabel="Next"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={1}
+                marginPagesDisplayed={3}
+                pageCount={totalPages||0}
+                previousLabel="Prev"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                containerClassName="pagination"
+                activeClassName="active"
+                renderOnZeroPageCount={null}
+            />
         </div>
     )
 }
