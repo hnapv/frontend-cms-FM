@@ -11,5 +11,5 @@ export const fetchAllCustomers = createAsyncThunk(
 
 
 export const fetchCustomerByID = (CustomerID)=>{
-    return axios.post("api/getDetailCustomerByCustomerID",{CustomerID:CustomerID})
+    return axios.post("api/getDetailCustomerByCustomerID",{CustomerID})
 }

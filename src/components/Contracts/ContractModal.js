@@ -1,5 +1,6 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -11,17 +12,22 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { registerLocale } from "react-datepicker";
 import vi from 'date-fns/locale/vi';
+import { numberWithCommas } from '../../utils/otherUtils';
+import { fetchApplicablePolicyRate } from '../../services/contractService';
 registerLocale('vi', vi)
 
 
 
 const ContractModal = (props) => {
-    const [orderDate, setOrderDate] = useState(new Date());
 
     const dispatch = useDispatch()
     const { show, setShow } = props
     const [CustomerID, setCustomerID] = useState("");
     const [CustomerName, setCustomerName] = useState("");
+    const [orderDate, setOrderDate] = useState("");
+    const [applicablePolicyRate, setApplicablePolicyRate] = useState({});
+    const [term, setTerm] = useState("");
+    console.log("term",term)
     const handleClose = () => {
         setShow(false);
         setCustomerID("")
@@ -33,8 +39,15 @@ const ContractModal = (props) => {
             const data = await fetchCustomerByID(CustomerID)
             setCustomerName(data.EC === 0 ? data.EM.CustomerName : "")
         }
-        console.log(event);
+        console.log(event.target.value);
 
+    }
+
+    const handleChangeOrderDate = async (e) => {
+        setOrderDate(e)
+        const applicablePolicyRate = await fetchApplicablePolicyRate(e)
+        console.log("applicablePolicyRate==>", applicablePolicyRate)
+        setApplicablePolicyRate(applicablePolicyRate)
     }
 
     const handleSubmit = async () => {
@@ -44,105 +57,90 @@ const ContractModal = (props) => {
     return (
         <>
             <Modal
+                size="lg"
                 show={show}
                 onHide={handleClose}
-                // fullscreen
-                className='modal-contract'
+            // fullscreen
+            // className='modal-contract'
             >
                 <Modal.Header closeButton>
                     <Modal.Title>Tạo mới hợp đồng</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <form>
-                        <Row >
-                            <Col>
-                                <label className="form-label">Customer ID: </label>
-                            </Col>
-                            <Col>  <input
-                                type="text"
-                                value={CustomerID}
-                                onChange={(e) => setCustomerID(e.target.value)}
-                                onKeyDown={(e) => handleCheckCustomerID(e)}
-                            />
-                            </Col>
-                            <Col>
-                                <label className="form-label">Name: </label>
-                            </Col>
-                            <Col>
-                                <input type="text" disabled value={CustomerName} />
-                            </Col>
-                            {/* <Col></Col>
-                            <Col></Col> */}
-                        </Row>
-                        <Row >
-                            <Col>
-                                <label className="form-label">Order date:  </label>
-
-                            </Col>
-                            <Col>
-                                <DatePicker
-                                    selected={orderDate}
-                                    onChange={(date) => setOrderDate(date)}
-                                    locale="vi"
-                                    dateFormat="dd/MM/yyyy"
+                    <form className='row'>
+                        <Col >
+                            <div className='d-flex justify-content-between align-self-center' style={{ marginBottom: 12 }}>
+                                <label className="form-label" >Customer ID: </label>
+                                <input
+                                    className="form-control"
+                                    style={{ maxWidth: 200 }}
+                                    type="text"
+                                    value={CustomerID}
+                                    onChange={(e) => setCustomerID(e.target.value)}
+                                    onKeyDown={(e) => handleCheckCustomerID(e)}
                                 />
-                            </Col>
-                            <Col>
-                                <label className="form-label">Term: </label>
-                            </Col>
-                            <Col>
-                                <input type="text" />
-                            </Col>
-                            {/* <Col></Col>
-                            <Col></Col> */}
-                        </Row>
-                        <Row >
-                            <Col>
-                                <label className="form-label">Interest Rate: </label>
+                            </div>
+                            <div className='d-flex justify-content-between align-self-center' style={{ marginBottom: 12 }}>
+                                <label className="form-label">Order date:  </label>
+                                <div style={{ maxWidth: 200 }}>
+                                    <DatePicker
+                                        className="form-control"
+                                        selected={orderDate}
+                                        onChange={(e) => handleChangeOrderDate(e)}
+                                        locale="vi"
+                                        dateFormat="dd/MM/yyyy"
+                                    />
+                                </div>
 
-                            </Col>
-                            <Col>
-                                <input type="text" disabled />
-                            </Col>
-                            <Col>
-                                <label className="form-label">Maturity Date </label>
-                            </Col>
-                            <Col>
-                                <input type="text" disabled />
-                            </Col>
-                            {/* <Col></Col>
-                            <Col></Col> */}
-                        </Row>
-                        <Row >
-                            <Col>
+                            </div>
+                            <div className='d-flex justify-content-between align-self-center' style={{ marginBottom: 12 }}>
+                                <label className="form-label">Term: </label>
+                                <select className="form-control" style={{ maxWidth: 200 }} value={term} onChange={e=>setTerm(e.target.value)} >
+                                    {applicablePolicyRate && applicablePolicyRate.rate_term &&
+                                        applicablePolicyRate.rate_term
+                                            .sort((a, b) => a.term.localeCompare(b.term))
+                                            .map((a) => {
+                                                return (
+                                                    <option value={a.term}>{a.term} - {a.rate}%</option>
+                                                )
+                                            })
+                                    }
+                                </select>
+                            </div>
+                            <div className='d-flex justify-content-between align-self-center' style={{ marginBottom: 12 }}>
                                 <label className="form-label">Investment Principal: </label>
-                            </Col>
-                            <Col>
-                                <input type="value" />
-                            </Col>
-                            <Col>
+                                <input className="form-control" style={{ maxWidth: 200 }} type="value" name="abc" />
+                            </div>
+
+                        </Col>
+                        <Col>
+                            <div className='d-flex justify-content-between align-self-center' style={{ marginBottom: 12 }}>
+                                <label className="form-label">Name: </label>
+                                <input
+                                    className="form-control"
+                                    style={{ maxWidth: 200 }}
+                                    type="text"
+                                    disabled
+                                    value={CustomerName}
+                                />
+                            </div>
+                            {/* <div className='d-flex justify-content-between align-self-center' style={{ marginBottom: 12 }}>
+                                <label className="form-label">Interest Rate: </label>
+                                <input className="form-control" style={{ maxWidth: 200 }} type="text" disabled />
+                            </div> */}
+                            <div className='d-flex justify-content-between align-self-center' style={{ marginBottom: 12 }}>
+                                <label className="form-label">Maturity Date </label>
+                                <input className="form-control" style={{ maxWidth: 200 }} type="text" disabled />
+                            </div>
+                            <div className='d-flex justify-content-between align-self-center' style={{ marginBottom: 12 }}>
                                 <label className="form-label">Profit: </label>
-                            </Col>
-                            <Col>
-                                <input type="value" disabled />
-                            </Col>
-                            {/* <Col></Col>
-                            <Col></Col> */}
-                        </Row>
-                        <Row >
-                            <Col>
+                                <input className="form-control" style={{ maxWidth: 200 }} type="value" disabled />
+                            </div>
+                            <div className='d-flex justify-content-between align-self-center' style={{ marginBottom: 12 }}>
                                 <label className="form-label">Gross Income: </label>
-                            </Col>
-                            <Col>
-                                <input type="text" disabled />
-                            </Col>
-                            <Col>
-                            </Col>
-                            <Col>
-                            </Col>
-                            {/* <Col></Col>
-                            <Col></Col> */}
-                        </Row>
+                                <input className="form-control" style={{ maxWidth: 200 }} type="text" disabled />
+                            </div>
+                        </Col>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

@@ -18,3 +18,9 @@ export const fetchContractsWithPaginate = createAsyncThunk(
         return response
     } 
 )
+
+export const fetchApplicablePolicyRate = async (OrderDate)=>{
+    const data = await axios.post("api/v1/policyRate/getApplicablePolicyRate",{OrderDate})
+    console.log("datâ")
+    return data
+}
